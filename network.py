@@ -25,7 +25,9 @@ def menu_utama():
         print(Fore.YELLOW + "1. Tes Koneksi Internet")
         print(Fore.YELLOW + "2. Cek IP Lokal")
         print(Fore.YELLOW + "3. DNS Lookup (Domain ke IP)")
+        print(Fore.YELLOW + "4. Kamus Password Admin Router")
         print(Fore.RED + "0. Keluar")
+
         print(Fore.CYAN + "=====================================")
         
         pilihan = input(Fore.WHITE + "Pilih menu [0-3]: ")
@@ -67,6 +69,54 @@ def menu_utama():
                     print(Fore.RED + Style.BRIGHT + "[-] GAGAL: Domain tidak ditemukan atau salah ketik!")
                 except Exception as e:
                     print(Fore.RED + f"[-] Error: {e}")
+            input("\nTekan Enter untuk kembali ke menu...")
+            
+        elif pilihan == '4':
+            print(Fore.CYAN + "\n=== KAMUS PASSWORD ADMIN ROUTER ===")
+            print(Fore.WHITE + "Merek populer: ZTE, Huawei, TP-Link, Tenda, ASUS")
+            cari = input(Fore.WHITE + "[*] Masukkan merek router yang dicari: ").strip().lower()
+            
+            # Database kamus password default router di Indonesia
+            database_router = {
+                "zte": [
+                    {"Username": "admin", "Password": "admin (Umum)"},
+                    {"Username": "user", "Password": "user (Akses terbatas)"},
+                    {"Username": "admin", "Password": "Telkomsel@123 (Orbit)"},
+                    {"Username": "Telkomadmin", "Password": "admintelecom (IndiHome)"}
+                ],
+                "huawei": [
+                    {"Username": "admin", "Password": "admin"},
+                    {"Username": "Telekomadmin", "Password": "admintelecom (IndiHome)"},
+                    {"Username": "root", "Password": "admin"}
+                ],
+                "tp-link": [
+                    {"Username": "admin", "Password": "admin"},
+                    {"Username": "admin", "Password": "password"}
+                ],
+                "tenda": [
+                    {"Username": "admin", "Password": "admin"},
+                    {"Username": "admin", "Password": "(Kosongkan/Tanpa password)"}
+                ],
+                "asus": [
+                    {"Username": "admin", "Password": "admin"}
+                ]
+            }
+            
+            found = False
+            print(Fore.CYAN + f"\n[*] Hasil pencarian untuk merek: {cari.upper()}")
+            print(Fore.YELLOW + "---------------------------------------------")
+            
+            for merk, akun_list in database_router.items():
+                if cari in merk:
+                    found = True
+                    for akun in akun_list:
+                        print(Fore.GREEN + f"[+] Username: {akun['Username']} | Password: {akun['Password']}")
+            
+            if not found:
+                print(Fore.RED + "[-] Merek tidak ditemukan atau belum ada di kamus.")
+                print(Fore.WHITE + "[*] Tips: Coba kombinasi umum -> U: admin | P: admin")
+                
+            print(Fore.YELLOW + "---------------------------------------------")
             input("\nTekan Enter untuk kembali ke menu...")
             
         elif pilihan == '0':
